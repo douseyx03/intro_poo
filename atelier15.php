@@ -5,6 +5,64 @@ interface MethodeProfesseur
     public function EvaluerEtudiant($dateEvaluation);
 }
 
+
+class Evaluation
+{
+    private $nomEvaluation;
+    private $dateEvaluation;
+    private $duréeEvaluation;
+    private $nomProfesseur;
+
+    public function __construct($nomEvaluation, $dateEvaluation, $duréeEvaluation, $nomProfesseur)
+    {
+        $this->nomEvaluation = $nomEvaluation;
+        $this->dateEvaluation = $dateEvaluation;
+        $this->duréeEvaluation = $duréeEvaluation;
+        $this->nomProfesseur = $nomProfesseur;
+    }
+
+    public function getNomEvaluation()
+    {
+        return $this->nomEvaluation;
+    }
+
+    public function getDateEvaluation()
+    {
+        return $this->dateEvaluation;
+    }
+
+    public function getDuréeEvaluation()
+    {
+        return $this->duréeEvaluation;
+    }
+
+    public function getNomProfesseur()
+    {
+        return $this->nomProfesseur;
+    }
+
+    public function AfficherInformationsEvaluation()
+    {
+        $info = "Nom de l'évaluation : {$this->nomEvaluation}\n";
+        $info .= "Date de l'évaluation : {$this->dateEvaluation}\n";
+        $info .= "Durée de l'évaluation : {$this->duréeEvaluation} heures\n";
+        $info .= "Nom du professeur : {$this->nomProfesseur}\n";
+        return $info;
+    }
+
+    public function AfficherNomProfesseur()
+    {
+        return "Nom du professeur : {$this->nomProfesseur}\n";
+    }
+}
+
+
+$evaluation = new Evaluation("Examen de mathématiques", "30/10/2023", 2, "MR SEYDOU DIALLO");
+echo $evaluation->AfficherInformationsEvaluation();
+echo $evaluation->AfficherNomProfesseur();
+
+
+
 class Etudiant
 {
     protected $matricule;
@@ -70,7 +128,7 @@ class Etudiant
     public function setDateNaissance($newDateNaissance)
     {
         if (!DateTime::createFromFormat('d/m/Y', $newDateNaissance)) {
-            throw new Exception("Attention ! Entrez une date de naissance correcte (format : jj/mm/aaaa)");
+            //throw new Exception("Attention ! Entrez une date de naissance correcte (format : jj/mm/aaaa)");
         } else {
             $this->dateNaissance = $newDateNaissance;
         }
@@ -122,7 +180,7 @@ class Professeur extends Etudiant implements MethodeProfesseur
     public function Presenter()
     {
         $message = $this->voiture ? "j'ai une voiture" : "je n'ai pas de voiture";
-        return "Salut, je suis professeur, je m'appelle {$this->prenom} {$this->nom}, je suis spécialisé dans le domaine de l'informatique et de la programmation, j'ai un salaire de {$this->salaire} FCFA, et $message";
+        return "Salut, je suis professeur, je m'appelle {$this->prenom} {$this->nom}, je suis spécialisé dans le domaine de le Physique Quantique, j'ai un salaire de {$this->salaire} FCFA, et $message.";
     }
 
     public function EvaluerEtudiant($dateEvaluation)
@@ -130,7 +188,7 @@ class Professeur extends Etudiant implements MethodeProfesseur
         if (!DateTime::createFromFormat('d/m/Y', $dateEvaluation)) {
             throw new Exception("La date n'est pas correcte (format : jj/mm/aaaa)");
         } else {
-            return "Je vais évaluer les étudiants le $dateEvaluation";
+            return "Je vais évaluer les étudiants le $dateEvaluation. <br>";
         }
     }
 }
@@ -144,16 +202,16 @@ try {
 }
 
 try {
-    $etudiant = new Etudiant("A7654321", "MOMAR", "TALL", "22/10/2000");
+    $etudiant = new Etudiant("A7654321", "SOULEYMANE", "DIOP", "22/10/2000");
     echo $etudiant->Presenter() . "\n";
 } catch (Exception $e) {
     echo $e->getMessage() . "\n";
 }
-
+/*
 try {
-    $professeur = new Professeur("S9815377", "SOULEYMANE", "DIOP", 3000000, true);
+    $professeur = new Professeur("S9815377", "Momar", "TALL", 3000000, true);
     echo $professeur->Presenter() . "\n";
     echo $professeur->EvaluerEtudiant("01/11/2023") . "\n";
 } catch (Exception $e) {
     echo $e->getMessage() . "\n";
-}
+}*/
